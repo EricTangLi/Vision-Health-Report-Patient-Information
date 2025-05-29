@@ -5,383 +5,470 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>筛查报告</title>
     <style>
-        /* Global Styles */
+        /* --- 全局样式 - Apple 设计风格启发 --- */
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f7f7f7; /* Light gray background for the page */
-            color: #333; /* Default text color */
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* 主字体栈：优先 Inter, 然后是苹果系统字体, Segoe UI (Windows), Roboto (Android) 及标准无衬线字体 */
+            margin: 0; /* 移除浏览器默认外边距 */
+            padding: 0; /* 移除浏览器默认内边距 */
+            background-color: #f5f5f7; /* 页面背景色，采用苹果常用的浅灰色 */
+            color: #1d1d1f; /* 主要文字颜色，采用苹果常用的深灰色 */
+            line-height: 1.65; /* 全局行高，增强可读性 */
+            font-size: 16px; /* 基本字体大小 */
+            -webkit-font-smoothing: antialiased; /* WebKit 浏览器字体平滑渲染 */
+            -moz-osx-font-smoothing: grayscale; /* Firefox 浏览器字体平滑渲染 */
         }
 
-        .container { /* Optional: a wrapper for content */
-            max-width: 900px; /* Max width for the content */
-            margin: 20px auto; /* Center container on the page */
-            padding: 0 15px; /* Padding on the sides */
+        /* --- 页面主内容容器 --- */
+        .container {
+            max-width: 860px; /* 内容区域最大宽度，略微减小以聚焦内容 */
+            margin: 40px auto; /* 上下外边距 40px，左右自动实现水平居中 */
+            padding: 0 20px; /* 容器左右内边距 20px，防止内容紧贴边缘 */
         }
 
-        /* Headings */
+        /* --- 标题样式 - Apple 设计风格启发 --- */
+        /* 一级标题 (报告主标题) */
         h1 {
-            font-size: 2.8em; /* Prominent main title */
-            color: #2c3e50; /* Darker, professional blue */
-            text-align: center;
-            margin-top: 30px;
-            margin-bottom: 40px;
-            font-weight: 600;
+            font-size: 2.5em; /* 字体大小，相对于父元素字体大小的2.5倍 */
+            color: #1d1d1f; /* 字体颜色，与 body 主要文字颜色一致 */
+            text-align: center; /* 文本居中对齐 */
+            margin-top: 40px; /* 上外边距 */
+            margin-bottom: 50px; /* 下外边距，增加与下方内容的间距 */
+            font-weight: 600; /* 字体粗细：半粗体 (Semi-bold) */
         }
 
+        /* 二级标题 (各主要区块标题) */
         h2 {
-            font-size: 1.8em;
-            color: #3498db; /* Bright blue for section titles */
-            margin-top: 40px;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ecf0f1; /* Light border for separation */
-            font-weight: 500;
+            font-size: 1.75em; /* 字体大小 */
+            color: #1d1d1f; /* 字体颜色，保持中性深色调 */
+            margin-top: 50px; /* 上外边距，增加与上方内容的间距 */
+            margin-bottom: 30px; /* 下外边距 */
+            padding-bottom: 15px; /* 下内边距，标题文字与下边框线的间距 */
+            border-bottom: 1px solid #e5e5e5; /* 标题下边框线，更轻、更微妙的分割线 */
+            font-weight: 500; /* 字体粗细：中等 (Medium) */
         }
 
+        /* 三级标题 (区块内子标题) */
         h3 {
-            font-size: 1.4em;
-            color: #2980b9; /* Slightly darker blue for sub-headings */
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-weight: 500;
+            font-size: 1.3em; /* 字体大小 */
+            color: #1d1d1f; /* 字体颜色 */
+            margin-top: 35px; /* 上外边距 */
+            margin-bottom: 20px; /* 下外边距 */
+            font-weight: 500; /* 字体粗细：中等 (Medium) */
         }
 
+        /* 四级标题 (更次级的提示性标题) */
         h4 {
-            font-size: 1.1em;
-            color: #555;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            font-weight: 600; /* Bolder for emphasis */
+            font-size: 1.1em; /* 字体大小 */
+            color: #333333; /* 字体颜色，比主文本略浅的深灰色 */
+            margin-top: 30px; /* 上外边距 */
+            margin-bottom: 12px; /* 下外边距 */
+            font-weight: 600; /* 字体粗细：半粗体 (Semi-bold)，用于强调 */
         }
 
-        /* Section Styling */
+        /* --- 区块/卡片样式 - Apple 设计风格启发 --- */
         section {
-            background-color: #fff; /* White background for cards */
-            padding: 25px 30px; /* Ample padding */
-            margin-bottom: 30px; /* Space between sections */
-            border-radius: 10px; /* Softer rounded corners */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Softer, more diffused shadow */
+            background-color: #ffffff; /* 区块背景色：白色 */
+            padding: 30px 35px; /* 内边距：上下30px，左右35px，增加内部空间感 */
+            margin-bottom: 35px; /* 下外边距，区块之间的间距 */
+            border-radius: 12px; /* 圆角半径，采用苹果风格的稍大圆角 */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06); /* 盒子阴影：非常微妙的阴影效果，提升层次感 */
         }
 
-        /* Paragraphs and Strong text */
+        /* --- 段落与强调文本样式 - Apple 设计风格启发 --- */
         p {
-            margin: 0 0 15px 0; /* Consistent bottom margin */
-            color: #555; /* Slightly lighter text for paragraphs */
+            margin: 0 0 18px 0; /* 外边距：上下0，下18px，用于段落间距 */
+            color: #333333; /* 段落文字颜色 */
+            font-size: 0.98em; /* 字体大小，略小于基础字号，使文本更精致 */
         }
 
         strong {
-            color: #333; /* Darker for emphasized text */
-            font-weight: 600;
+            color: #1d1d1f; /* 强调文本颜色，与主文字颜色一致 */
+            font-weight: 600; /* 字体粗细：半粗体 (Semi-bold)，用于段落内强调 */
         }
 
-        /* Basic Information Section Specifics */
+        /* --- “基本信息”区块特定样式 - Apple 设计风格启发 --- */
         .basic-info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
-            gap: 10px 20px; /* Gap between items */
+            display: grid; /* 使用 CSS Grid 布局 */
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* 响应式列布局：列宽最小260px，自动适应容器宽度并平分空间 */
+            gap: 15px 25px; /* 网格项目间距：行间距15px，列间距25px */
         }
-        .basic-info-grid p {
-            margin: 5px 0; /* Reduced margin for grid items */
-            display: flex; /* Use flex for label and value alignment */
-            justify-content: space-between; /* Pushes label and value apart */
+        .basic-info-grid p { /* 基本信息区块内段落样式 */
+            margin: 8px 0; /* 上下外边距8px，减少网格内项目间距 */
+            display: flex; /* 使用 Flexbox 布局，用于标签和值的对齐 */
+            justify-content: space-between; /* 主轴对齐方式：两端对齐，标签和值分别靠两侧 */
+            font-size: 0.95em; /* 字体大小 */
         }
-        .basic-info-grid p strong {
-            margin-right: 10px; /* Space after the label */
-            color: #555;
-            font-weight: normal; /* Normal weight for labels to match reference better */
+        .basic-info-grid p strong { /* 基本信息区块内标签 (strong) 样式 */
+            margin-right: 15px; /* 右外边距，标签与值之间的间距 */
+            color: #555555; /* 标签文字颜色，较浅的灰色 */
+            font-weight: 400; /* 字体粗细：常规 (Regular) */
         }
-        .basic-info-grid p span { /* Assuming value is wrapped in span or just text */
-            text-align: right;
-            color: #333;
-            font-weight: 500;
-        }
-
-
-        /* Overview Section Specifics */
-        .overview-percentage {
-            font-size: 4.5em; /* Very large percentage */
-            font-weight: bold;
-            color: #3498db; /* Theme color */
-            text-align: center;
-            margin: 20px 0 30px 0;
-            display: block;
-        }
-        .overview-expert-message strong {
-            display: block; /* Make "专家寄语：" take full width */
-            margin-bottom: 8px;
-            font-size: 1.1em;
+        .basic-info-grid p span { /* 基本信息区块内值 (span) 样式 */
+            text-align: right; /* 文本右对齐 */
+            color: #1d1d1f; /*值的文字颜色 */
+            font-weight: 500; /* 字体粗细：中等 (Medium) */
         }
 
-        /* Tables */
+        /* --- “概览”区块特定样式 - Apple 设计风格启发 --- */
+        .overview-percentage { /* 概览百分比数字样式 */
+            font-size: 4em; /* 字体大小，非常突出 */
+            font-weight: 600; /* 字体粗细：半粗体 (Semi-bold) */
+            color: #007aff; /* 字体颜色：苹果主蓝色，用作强调色 */
+            text-align: center; /* 文本居中对齐 */
+            margin: 25px 0 35px 0; /* 外边距：上下间距调整 */
+            display: block; /* 设置为块级元素，使其能够独立占据一行并应用 text-align */
+        }
+        .overview-expert-message strong { /* 专家寄语标题 (strong) 样式 */
+            display: block; /* 设置为块级元素，使其单独占据一行 */
+            margin-bottom: 10px; /* 下外边距 */
+            font-size: 1.05em; /* 字体大小 */
+            font-weight: 500; /* 字体粗细：中等 (Medium) */
+        }
+
+        /* --- 表格样式 - Apple 设计风格启发 --- */
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 25px;
-            font-size: 0.95em;
+            width: 100%; /* 表格宽度占满父容器 */
+            border-collapse: collapse; /* 边框合并为单一边框 */
+            margin-bottom: 30px; /* 下外边距 */
+            font-size: 0.92em; /* 表格内字体大小，略微减小以容纳更多信息 */
         }
 
-        th, td {
-            border: 1px solid #e0e0e0; /* Lighter border */
-            padding: 12px 15px; /* More padding */
-            text-align: left;
-            vertical-align: middle;
+        th, td { /* 表头单元格和数据单元格通用样式 */
+            border-bottom: 1px solid #e9e9e9; /* 下边框线：仅保留水平行分割线 */
+            padding: 14px 10px; /* 内边距：上下14px，左右10px */
+            text-align: left; /* 文本左对齐 */
+            vertical-align: middle; /* 内容垂直居中对齐 */
+        }
+        th:first-child, td:first-child { padding-left: 0; } /* 首列单元格移除左内边距，使文本更贴近左侧边缘（可选） */
+        th:last-child, td:last-child { padding-right: 0; } /* 末列单元格移除右内边距（可选） */
+
+        th { /* 表头单元格特定样式 */
+            background-color: transparent; /* 背景色：透明，无特殊背景 */
+            font-weight: 500; /* 字体粗细：中等 (Medium) */
+            color: #1d1d1f; /* 字体颜色 */
+            border-top: 1px solid #e9e9e9; /* 表头行顶部加一条分割线 */
+        }
+        td { /* 数据单元格特定样式 */
+            color: #333333; /* 字体颜色 */
+        }
+        tbody tr:last-child td { /* 表格主体最后一行的数据单元格样式 */
+            border-bottom: none; /* 移除下边框线，使表格底部更简洁 */
         }
 
-        th {
-            background-color: #f9f9f9; /* Very light gray for headers */
-            font-weight: 600; /* Bold headers */
-            color: #444;
-        }
 
-        /* Lists */
+        /* --- 列表样式 - Apple 设计风格启发 --- */
         ul {
-            padding-left: 25px; /* Standard indentation */
-            margin-bottom: 15px;
+            padding-left: 22px; /* 左内边距，列表标记 (bullet) 与文本的间距 */
+            margin-bottom: 20px; /* 下外边距 */
         }
 
         li {
-            margin-bottom: 8px; /* Space between list items */
-            color: #555;
+            margin-bottom: 10px; /* 列表项之间的下外边距 */
+            color: #333333; /* 列表项文字颜色 */
         }
-        li strong { /* For bolded text at the start of list items */
-            color: #333;
+        li strong { /* 列表项内强调文本 (strong) 样式 */
+            font-weight: 500; /* 字体粗细：中等 (Medium) */
         }
 
-        /* Trend Graph Placeholder */
+        /* --- “近视发展趋势预测图”占位符样式 - Apple 设计风格启发 --- */
         .trend-graph-placeholder {
-            text-align: center;
-            padding: 40px 20px; /* More padding */
-            border: 2px dashed #bdc3c7; /* Dashed border */
-            margin-bottom: 30px;
-            border-radius: 8px;
-            background-color: #fdfdfd;
-            color: #7f8c8d;
-            font-size: 1.1em;
+            text-align: center; /* 文本居中对齐 */
+            padding: 45px 25px; /* 内边距：增加空间感 */
+            border: 1px solid #e0e0e0; /* 边框：更轻的实线边框 */
+            margin-top: 15px; /* 上外边距，与上方标题的间距 */
+            margin-bottom: 35px; /* 下外边距 */
+            border-radius: 10px; /* 圆角半径，与其他区块保持一致 */
+            background-color: #fcfcfc; /* 背景色：非常浅的灰色，略作区分 */
+            color: #666666; /* 文字颜色：较柔和的灰色 */
+            font-size: 1.05em; /* 字体大小 */
         }
 
-        /* Doctor's Information Section */
+        /* --- “医生信息”区块样式 - Apple 设计风格启发 --- */
         .doctor-info {
-            text-align: center;
-            padding-top: 30px; /* More top padding */
+            text-align: center; /* 内容居中对齐 */
+            padding-top: 35px; /* 上内边距，增加顶部空间 */
         }
-        .doctor-info img {
-            width: 160px; /* Slightly larger */
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px; /* More space below image */
-            border: 4px solid #ecf0f1; /* Light border around image */
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        .doctor-info img { /* 医生照片样式 */
+            width: 140px; /* 图片宽度 */
+            height: 140px; /* 图片高度 */
+            border-radius: 50%; /* 圆角半径：50% 使图片呈圆形 */
+            object-fit: cover; /* 图片裁剪方式：覆盖整个容器，保持纵横比 */
+            margin-bottom: 25px; /* 下外边距 */
+            border: none; /* 移除边框，依赖阴影或图片本身 */
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* 盒子阴影：为图片添加微妙的深度感 */
         }
-        .doctor-info h3 { /* Doctor's Name */
-            font-size: 1.6em;
-            color: #333;
-            margin-top: 0;
-            margin-bottom: 8px;
+        .doctor-info h3 { /* 医生姓名样式 */
+            font-size: 1.5em; /* 字体大小 */
+            color: #1d1d1f; /* 字体颜色 */
+            margin-top: 0; /* 上外边距 */
+            margin-bottom: 10px; /* 下外边距 */
+            font-weight: 500; /* 字体粗细：中等 (Medium) */
         }
-        .doctor-info p { /* Doctor's Title */
-            font-size: 1em;
-            color: #777;
-            margin-bottom: 15px; /* Space before affiliations */
+        .doctor-info p { /* 医生职称样式 */
+            font-size: 0.95em; /* 字体大小 */
+            color: #555555; /* 字体颜色：较柔和的灰色 */
+            margin-bottom: 18px; /* 下外边距 */
         }
-        .doctor-info ul { /* Affiliations */
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
+        .doctor-info ul { /* 医生资质列表样式 */
+            list-style-type: none; /* 移除列表默认的项目符号 */
+            padding: 0; /* 移除内边距 */
+            margin: 0; /* 移除外边距 */
         }
-        .doctor-info ul li {
-            font-size: 0.95em;
-            color: #555;
-            margin-bottom: 5px;
+        .doctor-info ul li { /* 医生资质列表项样式 */
+            font-size: 0.9em; /* 字体大小 */
+            color: #555555; /* 字体颜色 */
+            margin-bottom: 6px; /* 下外边距 */
         }
 
-        /* Action Buttons Section */
+        /* --- 操作按钮区块样式 - Apple 设计风格启发 --- */
         .action-buttons {
-            text-align: center;
-            padding: 20px 0 30px 0; /* Adjusted padding */
-            background-color: transparent;
-            box-shadow: none;
+            text-align: center; /* 内容居中对齐 */
+            padding: 25px 0 35px 0; /* 内边距：上下增加空间，左右0 */
+            background-color: transparent; /* 背景色：透明 */
+            box-shadow: none; /* 移除盒子阴影，使其不表现为卡片 */
         }
-        .action-buttons button {
-            background-color: #3498db; /* Consistent theme blue */
-            color: white;
-            border: none;
-            padding: 14px 30px; /* Larger buttons */
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 1.05em; /* Slightly larger font */
-            margin: 10px 15px;
-            cursor: pointer;
-            border-radius: 8px; /* More rounded */
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
-            font-weight: 500;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .action-buttons button { /* 按钮通用样式 */
+            background-color: #007aff; /* 背景色：苹果主蓝色 */
+            color: white; /* 文字颜色：白色 */
+            border: none; /* 移除边框 */
+            padding: 12px 28px; /* 内边距：上下12px，左右28px */
+            text-align: center; /* 文本居中对齐 */
+            text-decoration: none; /* 移除文本装饰（如下划线） */
+            display: inline-block; /* 设置为行内块级元素，使其可以设置宽高并与其他元素同行 */
+            font-size: 0.95em; /* 字体大小，略小于基础字号 */
+            margin: 10px 12px; /* 外边距：按钮之间的间距 */
+            cursor: pointer; /* 鼠标悬停样式：手型指针 */
+            border-radius: 8px; /* 圆角半径：苹果标准按钮圆角 */
+            transition: background-color 0.2s ease; /* 过渡效果：背景色变化平滑过渡 */
+            font-weight: 500; /* 字体粗细：中等 (Medium) */
+            min-width: 180px; /* 最小宽度，确保按钮不会过窄 */
         }
-        .action-buttons button:hover {
-            background-color: #2980b9; /* Darker blue on hover */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        .action-buttons button:hover { /* 按钮悬停状态样式 */
+            background-color: #005ecb; /* 背景色：苹果主蓝色的较暗色调 */
         }
 
-        /* Responsive adjustments */
+        /* --- 响应式设计调整 - Apple 设计风格启发 --- */
+        /* 针对平板电脑等中等屏幕设备 (宽度小于等于 768px) */
         @media (max-width: 768px) {
-            h1 { font-size: 2.2em; margin-bottom: 30px; }
-            h2 { font-size: 1.6em; margin-bottom: 20px; }
-            h3 { font-size: 1.3em; }
-            section { padding: 20px; margin-bottom: 20px; }
-            .container { margin: 10px auto; padding: 0 10px; }
-            .basic-info-grid p { flex-direction: column; align-items: flex-start; } /* Stack label and value on small screens */
-            .basic-info-grid p strong { margin-bottom: 3px; }
-            .basic-info-grid p span { text-align: left; }
-            .overview-percentage { font-size: 3.5em; }
-            .action-buttons button { width: calc(100% - 30px); margin-left: 15px; margin-right: 15px; }
+            .container { margin: 20px auto; padding: 0 15px; } /* 调整容器外边距和内边距 */
+            h1 { font-size: 2em; margin-bottom: 40px; } /* 调整一级标题字体大小和下外边距 */
+            h2 { font-size: 1.5em; margin-bottom: 25px; padding-bottom: 12px;} /* 调整二级标题样式 */
+            h3 { font-size: 1.2em; } /* 调整三级标题字体大小 */
+            section { padding: 25px; margin-bottom: 25px; border-radius: 10px; } /* 调整区块内边距、下外边距和圆角 */
+            .basic-info-grid p { flex-direction: column; align-items: flex-start; gap: 2px; } /* 基本信息网格内项目改为垂直排列 */
+            .basic-info-grid p strong { margin-bottom: 4px; } /* 调整基本信息标签下外边距 */
+            .basic-info-grid p span { text-align: left; } /* 基本信息值左对齐 */
+            .overview-percentage { font-size: 3em; } /* 调整概览百分比字体大小 */
+            .action-buttons button { width: calc(100% - 40px); margin: 8px 20px; padding: 14px 20px; } /* 操作按钮宽度占满，调整外边距和内边距 */
+            th, td { padding: 12px 8px; } /* 调整表格单元格内边距 */
         }
+        /* 针对手机等小型屏幕设备 (宽度小于等于 480px) */
         @media (max-width: 480px) {
-            h1 { font-size: 1.8em; margin-bottom: 20px; }
-            h2 { font-size: 1.4em; }
-            h3 { font-size: 1.2em; }
-            th, td { padding: 8px 10px; }
-             .overview-percentage { font-size: 3em; }
+            body { font-size: 15px; } /* 调整基础字体大小 */
+            .container { margin: 15px auto; padding: 0 10px; } /* 进一步调整容器外边距和内边距 */
+            h1 { font-size: 1.7em; margin-bottom: 30px; } /* 进一步调整一级标题样式 */
+            h2 { font-size: 1.3em; } /* 进一步调整二级标题字体大小 */
+            h3 { font-size: 1.1em; } /* 进一步调整三级标题字体大小 */
+            section { padding: 20px; margin-bottom: 20px; border-radius: 8px;} /* 进一步调整区块样式 */
+            .overview-percentage { font-size: 2.8em; } /* 进一步调整概览百分比字体大小 */
+            .action-buttons button { width: calc(100% - 30px); margin: 8px 15px; padding: 12px 15px; } /* 进一步调整操作按钮样式 */
+            th, td { padding: 10px 5px; font-size: 0.88em; } /* 进一步调整表格单元格内边距和字体大小 */
+            .trend-graph-placeholder { padding: 30px 15px; font-size: 1em; } /* 调整趋势图占位符内边距和字体大小 */
         }
 
     </style>
 </head>
 <body>
-    <div class="container"> <!-- Added a container for max-width and centering -->
+    <!-- 页面主容器 -->
+    <div class="container">
+        <!-- 报告主标题 -->
         <h1>筛查报告</h1>
 
+        <!-- 基本信息区块 -->
         <section id="basic-info">
+            <!-- 区块标题：基本信息 -->
             <h2>基本信息</h2>
+            <!-- 基本信息栅格布局容器 -->
             <div class="basic-info-grid">
+                <!-- 姓名 -->
                 <p><strong>姓名:</strong> <span>[Placeholder Name]</span></p>
+                <!-- 性别 -->
                 <p><strong>性别:</strong> <span>[Placeholder Gender]</span></p>
+                <!-- 年龄 -->
                 <p><strong>年龄:</strong> <span>[Placeholder Age]</span></p>
+                <!-- 学号 -->
                 <p><strong>学号:</strong> <span>[Placeholder School ID]</span></p>
+                <!-- 家长电话 -->
                 <p><strong>家长电话:</strong> <span>[Placeholder Parent's Phone]</span></p>
+                <!-- 学校 -->
                 <p><strong>学校:</strong> <span>[Placeholder School]</span></p>
+                <!-- 年级 -->
                 <p><strong>年级:</strong> <span>[Placeholder Grade]</span></p>
+                <!-- 班级 -->
                 <p><strong>班级:</strong> <span>[Placeholder Class]</span></p>
+                <!-- 检查日期 -->
                 <p><strong>检查日期:</strong> <span>[Placeholder Examination Date]</span></p>
             </div>
         </section>
 
+        <!-- 概览区块 -->
         <section id="overview">
+            <!-- 区块标题：概览 -->
             <h2>概览</h2>
+            <!-- 概览百分比占位符 -->
             <div class="overview-percentage">XX%</div>
+            <!-- 专家寄语标题 -->
             <p class="overview-expert-message"><strong>专家寄语：</strong></p>
+            <!-- 专家寄语内容占位符 -->
             <p>[Placeholder expert message text about the child's vision and recommendations]</p>
         </section>
 
+        <!-- 详细数据区块 -->
         <section id="detailed-data">
+            <!-- 区块标题：筛查数据 -->
             <h2>筛查数据</h2>
 
+            <!-- 子标题：视力检查 -->
             <h3>视力检查</h3>
+            <!-- 视力检查数据表 -->
             <table>
                 <thead>
                     <tr>
-                        <th>参数</th>
-                        <th>右眼</th>
-                        <th>左眼</th>
+                        <th>参数</th> <!-- 表头：参数 -->
+                        <th>右眼</th> <!-- 表头：右眼 -->
+                        <th>左眼</th> <!-- 表头：左眼 -->
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>裸眼视力</td>
-                        <td>---</td>
-                        <td>---</td>
+                        <td>裸眼视力</td> <!-- 数据行：裸眼视力 -->
+                        <td>---</td>    <!-- 数据占位符 -->
+                        <td>---</td>    <!-- 数据占位符 -->
                     </tr>
                     <tr>
-                        <td>矫正视力</td>
-                        <td>---</td>
-                        <td>---</td>
+                        <td>矫正视力</td> <!-- 数据行：矫正视力 -->
+                        <td>---</td>    <!-- 数据占位符 -->
+                        <td>---</td>    <!-- 数据占位符 -->
                     </tr>
                 </tbody>
             </table>
-            <p><strong>戴镜类型：</strong> [Placeholder Glasses Type]</p>
+            <!-- 戴镜类型信息 -->
+            <p><strong>戴镜类型：</strong> [Placeholder Glasses Type]</p> <!-- 戴镜类型占位符 -->
 
+            <!-- 子标题：屈光检查（电脑验光） -->
             <h3>屈光检查（电脑验光）</h3>
+            <!-- 屈光检查数据表 -->
             <table>
                 <thead>
                     <tr>
-                        <th>参数</th>
-                        <th>右眼</th>
-                        <th>左眼</th>
+                        <th>参数</th> <!-- 表头：参数 -->
+                        <th>右眼</th> <!-- 表头：右眼 -->
+                        <th>左眼</th> <!-- 表头：左眼 -->
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>球镜 (S)</td>
-                        <td>---</td>
-                        <td>---</td>
+                        <td>球镜 (S)</td> <!-- 数据行：球镜 (S) -->
+                        <td>---</td>      <!-- 数据占位符 -->
+                        <td>---</td>      <!-- 数据占位符 -->
                     </tr>
                     <tr>
-                        <td>柱镜 (C)</td>
-                        <td>---</td>
-                        <td>---</td>
+                        <td>柱镜 (C)</td> <!-- 数据行：柱镜 (C) -->
+                        <td>---</td>      <!-- 数据占位符 -->
+                        <td>---</td>      <!-- 数据占位符 -->
                     </tr>
                     <tr>
-                        <td>轴位 (A)</td>
-                        <td>---</td>
-                        <td>---</td>
+                        <td>轴位 (A)</td> <!-- 数据行：轴位 (A) -->
+                        <td>---</td>      <!-- 数据占位符 -->
+                        <td>---</td>      <!-- 数据占位符 -->
                     </tr>
                 </tbody>
             </table>
 
+            <!-- 小标题：数据解读小贴士 -->
             <h4>数据解读小贴士：</h4>
+            <!-- 数据解读要点列表 -->
             <ul>
+                <!-- 裸眼视力解释占位符 -->
                 <li><strong>裸眼视力:</strong> [Placeholder explanation for Uncorrected Visual Acuity]</li>
+                <!-- 矫正视力解释占位符 -->
                 <li><strong>矫正视力:</strong> [Placeholder explanation for Corrected Visual Acuity]</li>
+                <!-- 球镜 (S)解释占位符 -->
                 <li><strong>球镜 (S):</strong> [Placeholder explanation for Spherical Lens (S)]</li>
+                <!-- 柱镜 (C)解释占位符 -->
                 <li><strong>柱镜 (C):</strong> [Placeholder explanation for Cylindrical Lens (C)]</li>
+                <!-- 轴位 (A)解释占位符 -->
                 <li><strong>轴位 (A):</strong> [Placeholder explanation for Axis (A)]</li>
             </ul>
 
+            <!-- 小标题：特别说明 -->
             <h4>特别说明：</h4>
+            <!-- 特别说明内容占位符 -->
             <p>[Placeholder text for special note about computerized optometry accuracy and recommendation for follow-up, including that it is a preliminary screening and not a substitute for a full ophthalmological exam.]</p>
         </section>
 
+        <!-- 近视发展趋势预测区块 -->
         <section id="trend-prediction">
+            <!-- 区块标题：近视发展趋势预测 (初步参考) -->
             <h2>近视发展趋势预测 (初步参考)</h2>
             
+            <!-- 近视发展趋势预测图占位符容器 -->
             <div class="trend-graph-placeholder">
-                [近视发展趋势预测图 Placeholder]
+                [近视发展趋势预测图 Placeholder] <!-- 图表占位符 -->
             </div>
 
+            <!-- 子标题：关键筛查及预测指标 (左眼) -->
             <h3>关键筛查及预测指标 (左眼):</h3>
+            <!-- 关键指标列表 -->
             <ul>
+                <!-- 检查时年龄占位符 -->
                 <li><strong>检查时年龄：</strong> [Placeholder Age at examination: XX岁X月]</li>
+                <!-- 当前球镜 (S)占位符 -->
                 <li><strong>当前球镜 (S)：</strong> [Placeholder Current Spherical Lens (S): X.XX D]</li>
+                <!-- 屈光发育百分位数参考占位符 -->
                 <li><strong>屈光发育百分位数参考：</strong> [Placeholder Refractive Development Percentile Reference: XX%]</li>
+                <!-- 预测18岁时球镜度数 (S)占位符 -->
                 <li><strong>预测18岁时球镜度数 (S)：</strong> [Placeholder Predicted Spherical Lens (S) at 18 years old: X.XX D]</li>
             </ul>
 
+            <!-- 趋势预测说明段落1 -->
             <p>图中展示了[Placeholder Name]同学 左眼 的屈光发育趋势预测。该预测基于[提及数据来源或模型，例如：同年龄段儿童的平均屈光发育数据模型]，并与同年龄段儿童的平均水平进行了比较。曲线显示了预期的屈光度变化轨迹。</p>
+            <!-- 趋势预测说明段落2 -->
             <p>基于初步模型的预测，在18岁时，[Placeholder Name]同学 左眼 的球镜度数可能达到[Placeholder Predicted Spherical Lens (S) at 18 years old: X.XX D]。此预测主要基于本次筛查的电脑验光数据。请注意，更全面的数据（如眼轴长度、角膜曲率、多次验光结果等）可以显著提高预测的准确性。</p>
+            <!-- 趋势预测说明段落3 (个体差异和影响因素) -->
             <p>近视的发生和发展存在显著的个体差异，并受到遗传、环境、生活习惯（如户外活动时间、近距离用眼负荷）等多种因素的综合影响。因此，本预测结果仅供参考。</p>
 
+            <!-- 小标题：复查建议 -->
             <h4>复查建议：</h4>
+            <!-- 复查建议内容 -->
             <p>凡是预测未来可能发生近视或近视快速进展的小朋友，我们强烈建议您带孩子前往专业的眼科医疗机构进行二次复查，包括但不限于医学验光（散瞳验光）、眼轴长度测量、角膜曲率检查等。这些详细的检查有助于医生做出更准确的诊断，并为您孩子提供个性化的近视防控方案和更全面的评估报告。</p>
         </section>
 
+        <!-- 医生信息区块 -->
         <section class="doctor-info">
+            <!-- 区块标题：医生信息 -->
             <h2>医生信息</h2>
+            <!-- 医生照片占位符 -->
             <img src="placeholder-doctor-photo.jpg" alt="Doctor's Photo">
+            <!-- 医生姓名占位符 -->
             <h3>[Placeholder Doctor's Name]</h3>
+            <!-- 医生职称占位符 -->
             <p>[Placeholder Doctor's Title]</p>
+            <!-- 医生所属机构/资质列表 -->
             <ul>
-                <li>[Placeholder Affiliation 1]</li>
-                <li>[Placeholder Affiliation 2]</li>
-                <li>[Placeholder Affiliation 3]</li>
+                <li>[Placeholder Affiliation 1]</li> <!-- 机构/资质 1 -->
+                <li>[Placeholder Affiliation 2]</li> <!-- 机构/资质 2 -->
+                <li>[Placeholder Affiliation 3]</li> <!-- 机构/资质 3 -->
             </ul>
         </section>
 
+        <!-- 操作按钮区块 -->
         <section class="action-buttons">
+          <!-- 按钮：预约复查建档 -->
           <button>预约复查建档</button>
+          <!-- 按钮：在线咨询医生 -->
           <button>在线咨询医生</button>
         </section>
-    </div> <!-- End of .container -->
+    </div> <!-- End of .container --> <!-- 页面主容器结束 -->
 </body>
 </html>
