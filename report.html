@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筛查报告</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* Light gray background for the page */
+            color: #333; /* Default text color */
+            line-height: 1.6;
+        }
+
+        .container { /* Optional: a wrapper for content */
+            max-width: 900px; /* Max width for the content */
+            margin: 20px auto; /* Center container on the page */
+            padding: 0 15px; /* Padding on the sides */
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 2.8em; /* Prominent main title */
+            color: #2c3e50; /* Darker, professional blue */
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #3498db; /* Bright blue for section titles */
+            margin-top: 40px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1; /* Light border for separation */
+            font-weight: 500;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            color: #2980b9; /* Slightly darker blue for sub-headings */
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        h4 {
+            font-size: 1.1em;
+            color: #555;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-weight: 600; /* Bolder for emphasis */
+        }
+
+        /* Section Styling */
+        section {
+            background-color: #fff; /* White background for cards */
+            padding: 25px 30px; /* Ample padding */
+            margin-bottom: 30px; /* Space between sections */
+            border-radius: 10px; /* Softer rounded corners */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Softer, more diffused shadow */
+        }
+
+        /* Paragraphs and Strong text */
+        p {
+            margin: 0 0 15px 0; /* Consistent bottom margin */
+            color: #555; /* Slightly lighter text for paragraphs */
+        }
+
+        strong {
+            color: #333; /* Darker for emphasized text */
+            font-weight: 600;
+        }
+
+        /* Basic Information Section Specifics */
+        .basic-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
+            gap: 10px 20px; /* Gap between items */
+        }
+        .basic-info-grid p {
+            margin: 5px 0; /* Reduced margin for grid items */
+            display: flex; /* Use flex for label and value alignment */
+            justify-content: space-between; /* Pushes label and value apart */
+        }
+        .basic-info-grid p strong {
+            margin-right: 10px; /* Space after the label */
+            color: #555;
+            font-weight: normal; /* Normal weight for labels to match reference better */
+        }
+        .basic-info-grid p span { /* Assuming value is wrapped in span or just text */
+            text-align: right;
+            color: #333;
+            font-weight: 500;
+        }
+
+
+        /* Overview Section Specifics */
+        .overview-percentage {
+            font-size: 4.5em; /* Very large percentage */
+            font-weight: bold;
+            color: #3498db; /* Theme color */
+            text-align: center;
+            margin: 20px 0 30px 0;
+            display: block;
+        }
+        .overview-expert-message strong {
+            display: block; /* Make "专家寄语：" take full width */
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            border: 1px solid #e0e0e0; /* Lighter border */
+            padding: 12px 15px; /* More padding */
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #f9f9f9; /* Very light gray for headers */
+            font-weight: 600; /* Bold headers */
+            color: #444;
+        }
+
+        /* Lists */
+        ul {
+            padding-left: 25px; /* Standard indentation */
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px; /* Space between list items */
+            color: #555;
+        }
+        li strong { /* For bolded text at the start of list items */
+            color: #333;
+        }
+
+        /* Trend Graph Placeholder */
+        .trend-graph-placeholder {
+            text-align: center;
+            padding: 40px 20px; /* More padding */
+            border: 2px dashed #bdc3c7; /* Dashed border */
+            margin-bottom: 30px;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        /* Doctor's Information Section */
+        .doctor-info {
+            text-align: center;
+            padding-top: 30px; /* More top padding */
+        }
+        .doctor-info img {
+            width: 160px; /* Slightly larger */
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px; /* More space below image */
+            border: 4px solid #ecf0f1; /* Light border around image */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .doctor-info h3 { /* Doctor's Name */
+            font-size: 1.6em;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .doctor-info p { /* Doctor's Title */
+            font-size: 1em;
+            color: #777;
+            margin-bottom: 15px; /* Space before affiliations */
+        }
+        .doctor-info ul { /* Affiliations */
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .doctor-info ul li {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        /* Action Buttons Section */
+        .action-buttons {
+            text-align: center;
+            padding: 20px 0 30px 0; /* Adjusted padding */
+            background-color: transparent;
+            box-shadow: none;
+        }
+        .action-buttons button {
+            background-color: #3498db; /* Consistent theme blue */
+            color: white;
+            border: none;
+            padding: 14px 30px; /* Larger buttons */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.05em; /* Slightly larger font */
+            margin: 10px 15px;
+            cursor: pointer;
+            border-radius: 8px; /* More rounded */
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .action-buttons button:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; margin-bottom: 30px; }
+            h2 { font-size: 1.6em; margin-bottom: 20px; }
+            h3 { font-size: 1.3em; }
+            section { padding: 20px; margin-bottom: 20px; }
+            .container { margin: 10px auto; padding: 0 10px; }
+            .basic-info-grid p { flex-direction: column; align-items: flex-start; } /* Stack label and value on small screens */
+            .basic-info-grid p strong { margin-bottom: 3px; }
+            .basic-info-grid p span { text-align: left; }
+            .overview-percentage { font-size: 3.5em; }
+            .action-buttons button { width: calc(100% - 30px); margin-left: 15px; margin-right: 15px; }
+        }
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8em; margin-bottom: 20px; }
+            h2 { font-size: 1.4em; }
+            h3 { font-size: 1.2em; }
+            th, td { padding: 8px 10px; }
+             .overview-percentage { font-size: 3em; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container"> <!-- Added a container for max-width and centering -->
+        <h1>筛查报告</h1>
+
+        <section id="basic-info">
+            <h2>基本信息</h2>
+            <div class="basic-info-grid">
+                <p><strong>姓名:</strong> <span>[Placeholder Name]</span></p>
+                <p><strong>性别:</strong> <span>[Placeholder Gender]</span></p>
+                <p><strong>年龄:</strong> <span>[Placeholder Age]</span></p>
+                <p><strong>学号:</strong> <span>[Placeholder School ID]</span></p>
+                <p><strong>家长电话:</strong> <span>[Placeholder Parent's Phone]</span></p>
+                <p><strong>学校:</strong> <span>[Placeholder School]</span></p>
+                <p><strong>年级:</strong> <span>[Placeholder Grade]</span></p>
+                <p><strong>班级:</strong> <span>[Placeholder Class]</span></p>
+                <p><strong>检查日期:</strong> <span>[Placeholder Examination Date]</span></p>
+            </div>
+        </section>
+
+        <section id="overview">
+            <h2>概览</h2>
+            <div class="overview-percentage">XX%</div>
+            <p class="overview-expert-message"><strong>专家寄语：</strong></p>
+            <p>[Placeholder expert message text about the child's vision and recommendations]</p>
+        </section>
+
+        <section id="detailed-data">
+            <h2>筛查数据</h2>
+
+            <h3>视力检查</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>参数</th>
+                        <th>右眼</th>
+                        <th>左眼</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>裸眼视力</td>
+                        <td>---</td>
+                        <td>---</td>
+                    </tr>
+                    <tr>
+                        <td>矫正视力</td>
+                        <td>---</td>
+                        <td>---</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>戴镜类型：</strong> [Placeholder Glasses Type]</p>
+
+            <h3>屈光检查（电脑验光）</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>参数</th>
+                        <th>右眼</th>
+                        <th>左眼</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>球镜 (S)</td>
+                        <td>---</td>
+                        <td>---</td>
+                    </tr>
+                    <tr>
+                        <td>柱镜 (C)</td>
+                        <td>---</td>
+                        <td>---</td>
+                    </tr>
+                    <tr>
+                        <td>轴位 (A)</td>
+                        <td>---</td>
+                        <td>---</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>数据解读小贴士：</h4>
+            <ul>
+                <li><strong>裸眼视力:</strong> [Placeholder explanation for Uncorrected Visual Acuity]</li>
+                <li><strong>矫正视力:</strong> [Placeholder explanation for Corrected Visual Acuity]</li>
+                <li><strong>球镜 (S):</strong> [Placeholder explanation for Spherical Lens (S)]</li>
+                <li><strong>柱镜 (C):</strong> [Placeholder explanation for Cylindrical Lens (C)]</li>
+                <li><strong>轴位 (A):</strong> [Placeholder explanation for Axis (A)]</li>
+            </ul>
+
+            <h4>特别说明：</h4>
+            <p>[Placeholder text for special note about computerized optometry accuracy and recommendation for follow-up, including that it is a preliminary screening and not a substitute for a full ophthalmological exam.]</p>
+        </section>
+
+        <section id="trend-prediction">
+            <h2>近视发展趋势预测 (初步参考)</h2>
+            
+            <div class="trend-graph-placeholder">
+                [近视发展趋势预测图 Placeholder]
+            </div>
+
+            <h3>关键筛查及预测指标 (左眼):</h3>
+            <ul>
+                <li><strong>检查时年龄：</strong> [Placeholder Age at examination: XX岁X月]</li>
+                <li><strong>当前球镜 (S)：</strong> [Placeholder Current Spherical Lens (S): X.XX D]</li>
+                <li><strong>屈光发育百分位数参考：</strong> [Placeholder Refractive Development Percentile Reference: XX%]</li>
+                <li><strong>预测18岁时球镜度数 (S)：</strong> [Placeholder Predicted Spherical Lens (S) at 18 years old: X.XX D]</li>
+            </ul>
+
+            <p>图中展示了[Placeholder Name]同学 左眼 的屈光发育趋势预测。该预测基于[提及数据来源或模型，例如：同年龄段儿童的平均屈光发育数据模型]，并与同年龄段儿童的平均水平进行了比较。曲线显示了预期的屈光度变化轨迹。</p>
+            <p>基于初步模型的预测，在18岁时，[Placeholder Name]同学 左眼 的球镜度数可能达到[Placeholder Predicted Spherical Lens (S) at 18 years old: X.XX D]。此预测主要基于本次筛查的电脑验光数据。请注意，更全面的数据（如眼轴长度、角膜曲率、多次验光结果等）可以显著提高预测的准确性。</p>
+            <p>近视的发生和发展存在显著的个体差异，并受到遗传、环境、生活习惯（如户外活动时间、近距离用眼负荷）等多种因素的综合影响。因此，本预测结果仅供参考。</p>
+
+            <h4>复查建议：</h4>
+            <p>凡是预测未来可能发生近视或近视快速进展的小朋友，我们强烈建议您带孩子前往专业的眼科医疗机构进行二次复查，包括但不限于医学验光（散瞳验光）、眼轴长度测量、角膜曲率检查等。这些详细的检查有助于医生做出更准确的诊断，并为您孩子提供个性化的近视防控方案和更全面的评估报告。</p>
+        </section>
+
+        <section class="doctor-info">
+            <h2>医生信息</h2>
+            <img src="placeholder-doctor-photo.jpg" alt="Doctor's Photo">
+            <h3>[Placeholder Doctor's Name]</h3>
+            <p>[Placeholder Doctor's Title]</p>
+            <ul>
+                <li>[Placeholder Affiliation 1]</li>
+                <li>[Placeholder Affiliation 2]</li>
+                <li>[Placeholder Affiliation 3]</li>
+            </ul>
+        </section>
+
+        <section class="action-buttons">
+          <button>预约复查建档</button>
+          <button>在线咨询医生</button>
+        </section>
+    </div> <!-- End of .container -->
+</body>
+</html>
