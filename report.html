@@ -13,22 +13,48 @@
             background-color: #f5f5f7; /* 页面背景色，采用苹果常用的浅灰色 */
             color: #1d1d1f; /* 主要文字颜色，采用苹果常用的深灰色 */
             line-height: 1.65; /* 全局行高，增强可读性 */
-            font-size: 16px; /* 基本字体大小 */
+            font-size: 16px; /* 基本字体大小 (桌面端) */
             -webkit-font-smoothing: antialiased; /* WebKit 浏览器字体平滑渲染 */
             -moz-osx-font-smoothing: grayscale; /* Firefox 浏览器字体平滑渲染 */
         }
 
         /* --- 页面主内容容器 --- */
         .container {
-            max-width: 860px; /* 内容区域最大宽度，略微减小以聚焦内容 */
-            margin: 40px auto; /* 上下外边距 40px，左右自动实现水平居中 */
+            max-width: 860px; /* 内容区域最大宽度 (桌面端) */
+            margin: 0 auto; /* 上下外边距由各元素自行控制，左右自动实现水平居中 */
             padding: 0 20px; /* 容器左右内边距 20px，防止内容紧贴边缘 */
         }
+
+        /* --- 新增：报告横幅图片占位符 --- */
+        .report-banner-placeholder {
+            height: 200px; /* 横幅高度 */
+            background-color: #e9e9e9; /* 浅灰色背景 */
+            display: flex;
+            flex-direction: column; /* Stack icon and text vertically */
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #888; /* 占位符文字颜色 */
+            font-size: 1.1em;
+            margin-bottom: 40px; /* 与下方H1标题的间距 */
+            border-radius: 0; /* 通常横幅不设置圆角，或只设置底部圆角 */
+            width: 100vw; /* 使其占满视口宽度 */
+            position: relative; /* 用于可能的绝对定位子元素 */
+            left: 50%; /* 左移50% */
+            transform: translateX(-50%); /* 水平居中 */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03); /* 非常细微的下阴影 */
+        }
+        .report-banner-placeholder .icon { /* Styling for the icon in the banner */
+            font-size: 2.5em; /* Larger icon */
+            margin-bottom: 10px; /* Space between icon and text */
+            opacity: 0.6;
+        }
+
 
         /* --- 标题样式 - Apple 设计风格启发 --- */
         /* 一级标题 (报告主标题) */
         h1 {
-            font-size: 2.5em; /* 字体大小，相对于父元素字体大小的2.5倍 */
+            font-size: 2.5em; /* 字体大小 (桌面端) */
             color: #1d1d1f; /* 字体颜色，与 body 主要文字颜色一致 */
             text-align: center; /* 文本居中对齐 */
             margin-top: 40px; /* 上外边距 */
@@ -38,7 +64,7 @@
 
         /* 二级标题 (各主要区块标题) */
         h2 {
-            font-size: 1.75em; /* 字体大小 */
+            font-size: 1.75em; /* 字体大小 (桌面端) */
             color: #1d1d1f; /* 字体颜色，保持中性深色调 */
             margin-top: 50px; /* 上外边距，增加与上方内容的间距 */
             margin-bottom: 30px; /* 下外边距 */
@@ -49,7 +75,7 @@
 
         /* 三级标题 (区块内子标题) */
         h3 {
-            font-size: 1.3em; /* 字体大小 */
+            font-size: 1.3em; /* 字体大小 (桌面端) */
             color: #1d1d1f; /* 字体颜色 */
             margin-top: 35px; /* 上外边距 */
             margin-bottom: 20px; /* 下外边距 */
@@ -58,17 +84,38 @@
 
         /* 四级标题 (更次级的提示性标题) */
         h4 {
-            font-size: 1.1em; /* 字体大小 */
+            font-size: 1.1em; /* 字体大小 (桌面端) */
             color: #333333; /* 字体颜色，比主文本略浅的深灰色 */
             margin-top: 30px; /* 上外边距 */
             margin-bottom: 12px; /* 下外边距 */
             font-weight: 600; /* 字体粗细：半粗体 (Semi-bold)，用于强调 */
         }
+        /* --- Collapsible Tips Styling --- */
+        #tips-toggle {
+            cursor: pointer; /* 表明可点击 */
+            display: flex; /* 使用flex布局让图标和文字在同一行 */
+            justify-content: space-between; /* 让文字和图标分布在两端 */
+            align-items: center; /* 垂直居中 */
+        }
+        .toggle-icon {
+            font-size: 1.2em; /* 图标大小 */
+            font-weight: bold; /* 图标粗细 */
+            margin-left: 10px; /* 图标与文字间距 */
+            color: #007aff; /* 图标颜色 */
+            transition: transform 0.2s ease-out; /* 图标旋转动画 */
+        }
+        #tips-content {
+            display: none; /* 初始隐藏内容 */
+            overflow: hidden; /* 确保内容在折叠动画时不会溢出 */
+            /* transition: max-height 0.3s ease-out; /* 平滑过渡效果，需要JS配合设置max-height */
+            /* max-height: 0; /* 初始最大高度为0，配合JS实现动画 */
+        }
+
 
         /* --- 区块/卡片样式 - Apple 设计风格启发 --- */
         section {
             background-color: #ffffff; /* 区块背景色：白色 */
-            padding: 30px 35px; /* 内边距：上下30px，左右35px，增加内部空间感 */
+            padding: 30px 35px; /* 内边距 (桌面端) */
             margin-bottom: 35px; /* 下外边距，区块之间的间距 */
             border-radius: 12px; /* 圆角半径，采用苹果风格的稍大圆角 */
             box-shadow: 0 2px 8px rgba(0,0,0,0.06); /* 盒子阴影：非常微妙的阴影效果，提升层次感 */
@@ -78,7 +125,7 @@
         p {
             margin: 0 0 18px 0; /* 外边距：上下0，下18px，用于段落间距 */
             color: #333333; /* 段落文字颜色 */
-            font-size: 0.98em; /* 字体大小，略小于基础字号，使文本更精致 */
+            font-size: 0.98em; /* 字体大小 (桌面端) */
         }
 
         strong {
@@ -89,14 +136,14 @@
         /* --- “基本信息”区块特定样式 - Apple 设计风格启发 --- */
         .basic-info-grid {
             display: grid; /* 使用 CSS Grid 布局 */
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* 响应式列布局：列宽最小260px，自动适应容器宽度并平分空间 */
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* 响应式列布局：列宽最小260px (桌面端) */
             gap: 15px 25px; /* 网格项目间距：行间距15px，列间距25px */
         }
         .basic-info-grid p { /* 基本信息区块内段落样式 */
             margin: 8px 0; /* 上下外边距8px，减少网格内项目间距 */
             display: flex; /* 使用 Flexbox 布局，用于标签和值的对齐 */
             justify-content: space-between; /* 主轴对齐方式：两端对齐，标签和值分别靠两侧 */
-            font-size: 0.95em; /* 字体大小 */
+            font-size: 0.95em; /* 字体大小 (桌面端) */
         }
         .basic-info-grid p strong { /* 基本信息区块内标签 (strong) 样式 */
             margin-right: 15px; /* 右外边距，标签与值之间的间距 */
@@ -111,7 +158,7 @@
 
         /* --- “概览”区块特定样式 - Apple 设计风格启发 --- */
         .overview-percentage { /* 概览百分比数字样式 */
-            font-size: 4em; /* 字体大小，非常突出 */
+            font-size: 4em; /* 字体大小 (桌面端) */
             font-weight: 600; /* 字体粗细：半粗体 (Semi-bold) */
             color: #007aff; /* 字体颜色：苹果主蓝色，用作强调色 */
             text-align: center; /* 文本居中对齐 */
@@ -128,19 +175,20 @@
         /* --- 表格样式 - Apple 设计风格启发 --- */
         table {
             width: 100%; /* 表格宽度占满父容器 */
-            border-collapse: collapse; /* 边框合并为单一边框 */
+            border-collapse: collapse; /* 边框合并为单setStyleSheet边框 */
             margin-bottom: 30px; /* 下外边距 */
-            font-size: 0.92em; /* 表格内字体大小，略微减小以容纳更多信息 */
+            font-size: 0.92em; /* 表格内字体大小 (桌面端) */
         }
 
         th, td { /* 表头单元格和数据单元格通用样式 */
             border-bottom: 1px solid #e9e9e9; /* 下边框线：仅保留水平行分割线 */
-            padding: 14px 10px; /* 内边距：上下14px，左右10px */
+            padding: 14px 10px; /* 内边距 (桌面端) */
             text-align: left; /* 文本左对齐 */
             vertical-align: middle; /* 内容垂直居中对齐 */
+            transition: background-color 0.15s ease-in-out; /* 行悬停背景色过渡 */
         }
-        th:first-child, td:first-child { padding-left: 0; } /* 首列单元格移除左内边距，使文本更贴近左侧边缘（可选） */
-        th:last-child, td:last-child { padding-right: 0; } /* 末列单元格移除右内边距（可选） */
+        th:first-child, td:first-child { padding-left: 0; } /* 首列单元格移除左内边距 */
+        th:last-child, td:last-child { padding-right: 0; } /* 末列单元格移除右内边距 */
 
         th { /* 表头单元格特定样式 */
             background-color: transparent; /* 背景色：透明，无特殊背景 */
@@ -153,6 +201,9 @@
         }
         tbody tr:last-child td { /* 表格主体最后一行的数据单元格样式 */
             border-bottom: none; /* 移除下边框线，使表格底部更简洁 */
+        }
+        tbody tr:hover td { /* 表格行悬停效果 */
+            background-color: #f8f8fa; /* 非常浅的灰色背景 */
         }
 
 
@@ -172,16 +223,27 @@
 
         /* --- “近视发展趋势预测图”占位符样式 - Apple 设计风格启发 --- */
         .trend-graph-placeholder {
+            display: flex; /* 使用flex布局实现内容居中 */
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+            flex-direction: column; /* Stack icon and text vertically */
             text-align: center; /* 文本居中对齐 */
-            padding: 45px 25px; /* 内边距：增加空间感 */
-            border: 1px solid #e0e0e0; /* 边框：更轻的实线边框 */
+            height: 250px; /* 固定高度 */
+            padding: 20px; /* 内边距 */
+            border: 1px dashed #d1d1d6; /* 边框：更接近Apple的虚线框颜色 */
             margin-top: 15px; /* 上外边距，与上方标题的间距 */
             margin-bottom: 35px; /* 下外边距 */
             border-radius: 10px; /* 圆角半径，与其他区块保持一致 */
-            background-color: #fcfcfc; /* 背景色：非常浅的灰色，略作区分 */
-            color: #666666; /* 文字颜色：较柔和的灰色 */
-            font-size: 1.05em; /* 字体大小 */
+            background-color: #f8f8fa; /* 背景色：非常浅的灰色 */
+            color: #8a8a8e; /* 文字颜色：Apple辅助文本颜色 */
+            font-size: 1.1em; /* 字体大小 (桌面端) */
         }
+        .trend-graph-placeholder .icon { /* Styling for the icon in the trend graph placeholder */
+            font-size: 2em; /* 图标大小 */
+            margin-bottom: 10px; /* 图标与文字间距 */
+            opacity: 0.7;
+        }
+
 
         /* --- “医生信息”区块样式 - Apple 设计风格启发 --- */
         .doctor-info {
@@ -189,23 +251,24 @@
             padding-top: 35px; /* 上内边距，增加顶部空间 */
         }
         .doctor-info img { /* 医生照片样式 */
-            width: 140px; /* 图片宽度 */
-            height: 140px; /* 图片高度 */
+            width: 140px; /* 图片宽度 (桌面端) */
+            height: 140px; /* 图片高度 (桌面端) */
             border-radius: 50%; /* 圆角半径：50% 使图片呈圆形 */
             object-fit: cover; /* 图片裁剪方式：覆盖整个容器，保持纵横比 */
             margin-bottom: 25px; /* 下外边距 */
             border: none; /* 移除边框，依赖阴影或图片本身 */
+            background-color: #e9e9e9; /* 占位符背景色 */
             box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* 盒子阴影：为图片添加微妙的深度感 */
         }
         .doctor-info h3 { /* 医生姓名样式 */
-            font-size: 1.5em; /* 字体大小 */
+            font-size: 1.5em; /* 字体大小 (桌面端) */
             color: #1d1d1f; /* 字体颜色 */
             margin-top: 0; /* 上外边距 */
             margin-bottom: 10px; /* 下外边距 */
             font-weight: 500; /* 字体粗细：中等 (Medium) */
         }
         .doctor-info p { /* 医生职称样式 */
-            font-size: 0.95em; /* 字体大小 */
+            font-size: 0.95em; /* 字体大小 (桌面端) */
             color: #555555; /* 字体颜色：较柔和的灰色 */
             margin-bottom: 18px; /* 下外边距 */
         }
@@ -215,7 +278,7 @@
             margin: 0; /* 移除外边距 */
         }
         .doctor-info ul li { /* 医生资质列表项样式 */
-            font-size: 0.9em; /* 字体大小 */
+            font-size: 0.9em; /* 字体大小 (桌面端) */
             color: #555555; /* 字体颜色 */
             margin-bottom: 6px; /* 下外边距 */
         }
@@ -228,57 +291,154 @@
             box-shadow: none; /* 移除盒子阴影，使其不表现为卡片 */
         }
         .action-buttons button { /* 按钮通用样式 */
-            background-color: #007aff; /* 背景色：苹果主蓝色 */
             color: white; /* 文字颜色：白色 */
             border: none; /* 移除边框 */
-            padding: 12px 28px; /* 内边距：上下12px，左右28px */
+            padding: 12px 24px; /* 内边距 */
             text-align: center; /* 文本居中对齐 */
             text-decoration: none; /* 移除文本装饰（如下划线） */
-            display: inline-block; /* 设置为行内块级元素，使其可以设置宽高并与其他元素同行 */
-            font-size: 0.95em; /* 字体大小，略小于基础字号 */
+            display: inline-block; /* 设置为行内块级元素 */
+            font-size: 0.98em; /* 字体大小 */
             margin: 10px 12px; /* 外边距：按钮之间的间距 */
             cursor: pointer; /* 鼠标悬停样式：手型指针 */
             border-radius: 8px; /* 圆角半径：苹果标准按钮圆角 */
-            transition: background-color 0.2s ease; /* 过渡效果：背景色变化平滑过渡 */
+            transition: background-color 0.2s ease, transform 0.1s ease; /* 过渡效果 */
             font-weight: 500; /* 字体粗细：中等 (Medium) */
-            min-width: 180px; /* 最小宽度，确保按钮不会过窄 */
+            min-width: 190px; /* 最小宽度，确保按钮不会过窄 */
         }
-        .action-buttons button:hover { /* 按钮悬停状态样式 */
+        .action-buttons button.primary { /* 主按钮样式 */
+            background-color: #007aff; /* 背景色：苹果主蓝色 */
+        }
+        .action-buttons button.primary:hover {
             background-color: #005ecb; /* 背景色：苹果主蓝色的较暗色调 */
         }
+        .action-buttons button.primary:active {
+            transform: scale(0.98); /* 点击时轻微缩小 */
+        }
+        .action-buttons button.secondary { /* 次按钮样式 */
+            background-color: #e9e9e9; /* 背景色：浅灰色 */
+            color: #007aff; /* 文字颜色：苹果主蓝色 */
+        }
+        .action-buttons button.secondary:hover {
+            background-color: #dcdcdc; /* 背景色：略深的灰色 */
+        }
+        .action-buttons button.secondary:active {
+            transform: scale(0.98); /* 点击时轻微缩小 */
+            background-color: #d0d0d0;
+        }
+
 
         /* --- 响应式设计调整 - Apple 设计风格启发 --- */
-        /* 针对平板电脑等中等屏幕设备 (宽度小于等于 768px) */
-        @media (max-width: 768px) {
-            .container { margin: 20px auto; padding: 0 15px; } /* 调整容器外边距和内边距 */
-            h1 { font-size: 2em; margin-bottom: 40px; } /* 调整一级标题字体大小和下外边距 */
-            h2 { font-size: 1.5em; margin-bottom: 25px; padding-bottom: 12px;} /* 调整二级标题样式 */
-            h3 { font-size: 1.2em; } /* 调整三级标题字体大小 */
-            section { padding: 25px; margin-bottom: 25px; border-radius: 10px; } /* 调整区块内边距、下外边距和圆角 */
-            .basic-info-grid p { flex-direction: column; align-items: flex-start; gap: 2px; } /* 基本信息网格内项目改为垂直排列 */
-            .basic-info-grid p strong { margin-bottom: 4px; } /* 调整基本信息标签下外边距 */
-            .basic-info-grid p span { text-align: left; } /* 基本信息值左对齐 */
-            .overview-percentage { font-size: 3em; } /* 调整概览百分比字体大小 */
-            .action-buttons button { width: calc(100% - 40px); margin: 8px 20px; padding: 14px 20px; } /* 操作按钮宽度占满，调整外边距和内边距 */
-            th, td { padding: 12px 8px; } /* 调整表格单元格内边距 */
+
+        /* 大型设备 (例如：横向平板, 小型台式机 - 1024px 及以下) */
+        @media (max-width: 1024px) {
+            .report-banner-placeholder { height: 180px; font-size: 1em; margin-bottom: 30px; }
+            .report-banner-placeholder .icon { font-size: 2.2em; }
+            .container {
+                max-width: 90%; /* 容器宽度使用百分比，增加灵活性 */
+                margin: 0 auto; /* 上下外边距由各元素自行控制 */
+            }
+            h1 { font-size: 2.2em; margin-top:30px; margin-bottom: 40px; }
+            h2 { font-size: 1.6em; margin-top: 40px; margin-bottom: 25px; }
+            h3 { font-size: 1.25em; }
+            section { padding: 25px 30px; margin-bottom: 30px; } /* 调整区块内边距和下外边距 */
+            .basic-info-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px 20px; } /* 调整网格列最小宽度和间距 */
+            p { font-size: 0.95em; }
+            table { font-size: 0.9em; }
+            th, td { padding: 12px 8px; }
+            .overview-percentage { font-size: 3.5em; }
+            .trend-graph-placeholder { padding: 40px 20px; font-size: 1em; height: 220px; }
+            .trend-graph-placeholder .icon { font-size: 1.8em; }
+            .doctor-info img { width: 130px; height: 130px; }
+            .doctor-info h3 { font-size: 1.4em; }
+            .doctor-info p { font-size: 0.9em; }
+            .doctor-info ul li { font-size: 0.88em; }
+            .action-buttons button { padding: 12px 22px; font-size: 0.95em; min-width: 180px; }
         }
-        /* 针对手机等小型屏幕设备 (宽度小于等于 480px) */
+        
+        /* 中型设备 (例如：纵向平板, 大型手机 - 768px 及以下) */
+        @media (max-width: 768px) {
+            body { font-size: 15px; } /* 略微减小基础字号 */
+            .report-banner-placeholder { height: 160px; font-size: 0.95em; margin-bottom: 25px; }
+            .report-banner-placeholder .icon { font-size: 2em; }
+            .container { 
+                max-width: 100%; /* 容器占满宽度 */
+                margin: 0 auto; 
+                padding: 0 15px; /* 调整容器内边距 */
+            }
+            h1 { font-size: 2em; margin-top: 25px; margin-bottom: 35px; }
+            h2 { font-size: 1.5em; margin-top: 30px; margin-bottom: 20px; padding-bottom: 12px;}
+            h3 { font-size: 1.2em; margin-top: 25px; margin-bottom: 15px; }
+            h4 { font-size: 1em; margin-top: 20px; margin-bottom: 10px; }
+            section { padding: 20px 25px; margin-bottom: 25px; border-radius: 10px; }
+            
+            .basic-info-grid { grid-template-columns: 1fr; gap: 10px; } /* 基本信息网格变为单列 */
+            .basic-info-grid p { 
+                flex-direction: row; /* 保持标签和值在一行 */
+                justify-content: space-between; /* 确保它们分开 */
+                align-items: baseline; /* 基线对齐 */
+            }
+            .basic-info-grid p strong { margin-bottom: 0; margin-right: 10px; } /* 移除标签下外边距 */
+            .basic-info-grid p span { text-align: right; } /* 确保值在右侧 */
+
+            p { font-size: 0.92em; margin-bottom: 15px; }
+            table { font-size: 0.88em; }
+            th, td { padding: 10px 6px; } /* 进一步减小表格单元格内边距 */
+            .overview-percentage { font-size: 3em; margin: 20px 0 30px 0; }
+            .trend-graph-placeholder { padding: 30px 15px; height: 200px; }
+            .trend-graph-placeholder .icon { font-size: 1.6em; }
+            .doctor-info img { width: 120px; height: 120px; margin-bottom: 20px; }
+            .doctor-info h3 { font-size: 1.3em; }
+            .action-buttons button { 
+                width: calc(100% - 40px); /* 按钮宽度接近占满，留出左右边距 */
+                margin: 10px 20px; /* 调整按钮外边距 */
+                padding: 14px 20px; /* 增加按钮内边距，方便点击 */
+                font-size: 1em; /* 确保按钮文字清晰 */
+            }
+        }
+
+        /* 小型设备 (例如：手机 - 480px 及以下) */
         @media (max-width: 480px) {
-            body { font-size: 15px; } /* 调整基础字体大小 */
-            .container { margin: 15px auto; padding: 0 10px; } /* 进一步调整容器外边距和内边距 */
-            h1 { font-size: 1.7em; margin-bottom: 30px; } /* 进一步调整一级标题样式 */
-            h2 { font-size: 1.3em; } /* 进一步调整二级标题字体大小 */
-            h3 { font-size: 1.1em; } /* 进一步调整三级标题字体大小 */
-            section { padding: 20px; margin-bottom: 20px; border-radius: 8px;} /* 进一步调整区块样式 */
-            .overview-percentage { font-size: 2.8em; } /* 进一步调整概览百分比字体大小 */
-            .action-buttons button { width: calc(100% - 30px); margin: 8px 15px; padding: 12px 15px; } /* 进一步调整操作按钮样式 */
-            th, td { padding: 10px 5px; font-size: 0.88em; } /* 进一步调整表格单元格内边距和字体大小 */
-            .trend-graph-placeholder { padding: 30px 15px; font-size: 1em; } /* 调整趋势图占位符内边距和字体大小 */
+            body { font-size: 14px; } /* 进一步减小基础字号 */
+            .report-banner-placeholder { height: 140px; font-size: 0.9em; margin-bottom: 20px; }
+            .report-banner-placeholder .icon { font-size: 1.8em; }
+            .container { margin: 0 auto; padding: 0 10px; }
+            h1 { font-size: 1.7em; margin-top: 20px; margin-bottom: 30px; }
+            h2 { font-size: 1.3em; margin-top: 25px; margin-bottom: 18px; padding-bottom: 10px; }
+            h3 { font-size: 1.1em; margin-top: 20px; margin-bottom: 12px; }
+            h4 { font-size: 0.95em; margin-top: 18px; margin-bottom: 8px; }
+            section { padding: 15px 20px; margin-bottom: 20px; border-radius: 8px;}
+            
+            .basic-info-grid p { font-size: 0.9em; }
+            .basic-info-grid p strong { white-space: nowrap; margin-right: 8px; } /* 防止标签换行 */
+            .basic-info-grid p span { word-break: break-all; } /* 允许值内容换行 */
+
+            p { font-size: 0.9em; margin-bottom: 12px; }
+            table { font-size: 0.82em; }
+            th, td { padding: 8px 5px; } /* 最小化表格单元格内边距 */
+            .overview-percentage { font-size: 2.5em; margin: 15px 0 25px 0; }
+            .trend-graph-placeholder { padding: 25px 10px; font-size: 0.9em; height: 180px; }
+            .trend-graph-placeholder .icon { font-size: 1.5em; } /* Adjusted icon size for graph placeholder */
+            .doctor-info img { width: 100px; height: 100px; margin-bottom: 15px; }
+            .doctor-info h3 { font-size: 1.2em; }
+            .doctor-info p { font-size: 0.85em; }
+            .doctor-info ul li { font-size: 0.82em; }
+            .action-buttons button { 
+                width: calc(100% - 30px); /* 按钮宽度进一步适应 */
+                margin: 8px 15px; 
+                padding: 12px 15px; /* 调整按钮内边距 */
+                font-size: 0.95em;
+            }
         }
 
     </style>
 </head>
 <body>
+    <!-- 新增：报告横幅图片占位符 -->
+    <div class="report-banner-placeholder">
+        <span class="icon">🖼️</span> <!-- Unicode Frame with Picture Icon -->
+        报告横幅图片占位符
+    </div>
+
     <!-- 页面主容器 -->
     <div class="container">
         <!-- 报告主标题 -->
@@ -386,20 +546,22 @@
             </table>
 
             <!-- 小标题：数据解读小贴士 -->
-            <h4>数据解读小贴士：</h4>
-            <!-- 数据解读要点列表 -->
-            <ul>
-                <!-- 裸眼视力解释占位符 -->
-                <li><strong>裸眼视力:</strong> [Placeholder explanation for Uncorrected Visual Acuity]</li>
-                <!-- 矫正视力解释占位符 -->
-                <li><strong>矫正视力:</strong> [Placeholder explanation for Corrected Visual Acuity]</li>
-                <!-- 球镜 (S)解释占位符 -->
-                <li><strong>球镜 (S):</strong> [Placeholder explanation for Spherical Lens (S)]</li>
-                <!-- 柱镜 (C)解释占位符 -->
-                <li><strong>柱镜 (C):</strong> [Placeholder explanation for Cylindrical Lens (C)]</li>
-                <!-- 轴位 (A)解释占位符 -->
-                <li><strong>轴位 (A):</strong> [Placeholder explanation for Axis (A)]</li>
-            </ul>
+            <h4 id="tips-toggle">数据解读小贴士：<span class="toggle-icon">+</span></h4>
+            <!-- 数据解读要点列表容器 -->
+            <div id="tips-content">
+                <ul>
+                    <!-- 裸眼视力解释占位符 -->
+                    <li><strong>裸眼视力:</strong> [Placeholder explanation for Uncorrected Visual Acuity]</li>
+                    <!-- 矫正视力解释占位符 -->
+                    <li><strong>矫正视力:</strong> [Placeholder explanation for Corrected Visual Acuity]</li>
+                    <!-- 球镜 (S)解释占位符 -->
+                    <li><strong>球镜 (S):</strong> [Placeholder explanation for Spherical Lens (S)]</li>
+                    <!-- 柱镜 (C)解释占位符 -->
+                    <li><strong>柱镜 (C):</strong> [Placeholder explanation for Cylindrical Lens (C)]</li>
+                    <!-- 轴位 (A)解释占位符 -->
+                    <li><strong>轴位 (A):</strong> [Placeholder explanation for Axis (A)]</li>
+                </ul>
+            </div>
 
             <!-- 小标题：特别说明 -->
             <h4>特别说明：</h4>
@@ -414,7 +576,9 @@
             
             <!-- 近视发展趋势预测图占位符容器 -->
             <div class="trend-graph-placeholder">
-                [近视发展趋势预测图 Placeholder] <!-- 图表占位符 -->
+                <span class="icon">📊</span> <!-- Unicode Chart Icon -->
+                <!-- 图表占位符 -->
+                [近视发展趋势预测图 Placeholder]
             </div>
 
             <!-- 子标题：关键筛查及预测指标 (左眼) -->
@@ -449,7 +613,7 @@
             <!-- 区块标题：医生信息 -->
             <h2>医生信息</h2>
             <!-- 医生照片占位符 -->
-            <img src="placeholder-doctor-photo.jpg" alt="Doctor's Photo">
+            <img src="placeholder-doctor-photo.jpg" alt="医生照片占位符"> <!-- Updated alt text -->
             <!-- 医生姓名占位符 -->
             <h3>[Placeholder Doctor's Name]</h3>
             <!-- 医生职称占位符 -->
@@ -465,10 +629,12 @@
         <!-- 操作按钮区块 -->
         <section class="action-buttons">
           <!-- 按钮：预约复查建档 -->
-          <button>预约复查建档</button>
+          <button class="primary"> <!-- Icon placeholder -->预约复查建档</button>
           <!-- 按钮：在线咨询医生 -->
-          <button>在线咨询医生</button>
+          <button class="secondary"> <!-- Icon placeholder -->在线咨询医生</button>
         </section>
     </div> <!-- End of .container --> <!-- 页面主容器结束 -->
+
+    <script src="script.js" defer></script> <!-- Linked JavaScript file -->
 </body>
 </html>
